@@ -39,14 +39,4 @@ router.post('/post/jskim', (req, res, next) => {
     });
 });
 
-router.post('/api/test/read', async (req, res) => {
-  try {    
-    const data = await db.any(req.body.customQuery);
-    res.json(data);
-  } catch (error) {
-    console.error('Error querying PostgreSQL:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
 module.exports = router;

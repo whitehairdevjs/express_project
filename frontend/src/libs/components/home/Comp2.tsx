@@ -5,7 +5,7 @@ import { BoxShadow, Item, Items, Txt, TxtSpan, Wrap } from '@/_ui_libs/_index';
 import { colors } from '@/libs/themes/colors';
 
 //
-export default function Comp1() {
+export default function Comp2() {
   return (
     <BoxShadow gap={20} padding={{ vertical: 20, horizontal: 16 }}>
       <Wrap gap={8}>

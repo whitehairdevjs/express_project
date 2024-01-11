@@ -17,34 +17,35 @@ import Comp5 from '@/libs/components/home/Comp5';
 export default function Index() {
   const router: NextRouter = useRouter();
   const [isSearch, setIsSearch] = useState('');
+  const [data, setData] = useState([]);
   // useEffect(() => {
   //   console.log("occur effect.. ");
   // }, []);
 
-  interface TestData {
-    test: string;
-  }
+  // interface TestData {
+  //   test: string;
+  // }
 
-  const testData: TestData = {'test' : '테스트 데이타 입니다'};
+  // const testData: TestData = {'test' : '테스트 데이타 입니다'};
 
-  const handleButtonClick = async () => {
+  const handleButtonClick = async () => {    
     // 버튼 클릭 시 URL 호출    
     try {
-      const response = await fetch('http://localhost:3001/api/test/read', {
+      const response = await fetch('http://localhost:3001/contentList/api/test/read', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(
           {
-            test: '테스트내용',
-            customQuery: 'select * from "test_info"'
+            searchText: isSearch,
           }
         ),
       });
       if (response.ok) {
-        const data = await response.json();
-        console.log('서버 응답:', data);
+        const resData = await response.json();
+        console.log('서버 응답:', resData);
+        setData(resData);
       } else {
         console.error('서버 응답 에러:', response.statusText);
       }
@@ -75,7 +76,7 @@ export default function Index() {
           />
 
           <Spacing size={16} />
-          <Comp1 data ={testData}/>
+          <Comp1 data = { data }/>
           {/* <Spacing size={12} />
           <Comp2 />
           <Spacing size={54} />
