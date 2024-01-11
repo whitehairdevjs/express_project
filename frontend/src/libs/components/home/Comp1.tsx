@@ -18,7 +18,7 @@ interface DataItem {
 export default function Comp1({ data } : { data : Array<DataItem> }) {
   return (          
         data.map((item: DataItem, index) => (
-          <BoxShadow padding={{ all: 16 }} margin={{ bottom : 10 }}>                    
+          <BoxShadow key={item.id} padding={{ all: 16 }} margin={{ bottom : 10 }}>                    
               <Row gap={12} align="center">
                 <ProfileImage
                   src="https://imagedelivery.net/vJSpkH6oHM7zquolzolo7A/77550435-1cc9-4b42-4519-3cd83f149b00/public"

@@ -95,7 +95,7 @@ export default function Fields() {
       {isLoading && <LoadingLayer />}
 
       <Column gap={30}>
-        <Row gap={10}>
+        {/* <Row gap={10}>
           <Tab
             onClick={() => setIsType('default')}
             txtSize={13}
@@ -116,7 +116,7 @@ export default function Fields() {
           >
             인풋 박스타입
           </Tab>
-        </Row>
+        </Row> */}
 
         <Form gap={22} onSubmit={handleOnSubmit} align="center">
           {/* ----- 프로필 사진 업로드 : ProfileUploadBox ----- */}
@@ -183,7 +183,7 @@ export default function Fields() {
           </Select>
 
           {/* ----- 가격 넘버릭 타입 인풋 : NumericField ----- */}
-          <Input label="가격">
+          {/* <Input label="가격">
             <Input.NumbericField
               shape={isType}
               placeholder="가격을 입력하세요"
@@ -192,20 +192,20 @@ export default function Fields() {
               onChange={(e) => setIsValues({ ...isValues, price: e.target.value })}
               edge="원"
             />
-          </Input>
+          </Input> */}
 
           {/* ----- 텍스트 인풋 + 켈렌더 : 날짜 선택 ----- */}
-          <Input label="날짜">
+          {/* <Input label="날짜">
             <Input.DateField
               shape={isType}
               placeholder="날짜를 선택하세요"
               value={moment(isValues.date)}
               onChange={(date: any) => setIsValues({ ...isValues, date: date })}
             />
-          </Input>
+          </Input> */}
 
           {/* ----- 에디터 타입 인풋 : Textarea ----- */}
-          <Input label="내용" labelEdge="(필수)">
+          {/* <Input label="내용" labelEdge="(필수)">
             <Input.Textarea
               shape={isType}
               placeholder="내용을 입력하세요"
@@ -217,7 +217,7 @@ export default function Fields() {
               }
               tolTip="문의 내용을 자유룝게 작성해주세요"
             />
-          </Input>
+          </Input> */}
 
           {/* ----- 체크박스 ----- */}
           <CheckBoxs isValues={isValues} handleCheckOnChange={handleCheckOnChange} />
@@ -231,7 +231,7 @@ export default function Fields() {
                 isValues.name &&
                 isValues.email &&
                 isValues.tel &&
-                isValues.context &&
+                // isValues.context &&
                 isValues.check1 &&
                 isValues.check2
               )

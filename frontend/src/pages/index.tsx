@@ -77,14 +77,16 @@ export default function Index() {
 
           <Spacing size={16} />
           <Comp1 data = { data }/>
-          {/* <Spacing size={12} />
+          <Spacing size={12} />
           <Comp2 />
           <Spacing size={54} />
           <Comp3 />
           <Spacing size={44} />
           <Comp4 />
           <Spacing size={44} />
-          <Comp5 /> */}
+          <Comp5 />
+          {/* 
+           */}
         </Container>
       </Section>
     </>

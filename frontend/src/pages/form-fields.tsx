@@ -28,15 +28,15 @@ export default function FormFields() {
           <Wrap gap={12}>
             <Txt as="h1" size={fontSize.s24}>
               {router.query.results
-                ? `최적화된 이미지\n위젯을 경험해봐요`
-                : `다양한 기능들이 제공되는\n인풋 위젯을 경험해보세요!`}
+                ? `회원가입 완료!\n다양한 서비스를 경험 해보자구요!~`
+                : `회원가입\n가입 후 다양한 서비스를 경험 해보세요~`}
             </Txt>
 
-            <Txt color={colors.grey800}>
+            {/* <Txt color={colors.grey800}>
               {router.query.results
                 ? `빠르게 트랜디한 UI를 만들어보세요\n당신의 개발 효율이 압도적으로 오를 거에요`
                 : `다양한 페이지 및 상황에 필요한 인풋들을\n누구나 쉽게 사용할 수 있도록 만들어뒀어요!`}
-            </Txt>
+            </Txt> */}
           </Wrap>
 
           {router.query.results ? <Result /> : <Fields />}

@@ -5,9 +5,9 @@ const { initOptions, db } = require('../db');
 
 router.post('/api/test/read', async (req, res) => {
     try {                    
-        let query = 'SELECT * FROM "test_info"';
+        let query = 'SELECT * FROM "content_list"';
         if (req.body.searchText !== undefined && req.body.searchText !== null && req.body.searchText !== "") {
-            query += 'WHERE content = ' + req.body.searchText; 
+            query += 'WHERE content like \'%' + req.body.searchText + '%\''; 
         }        
         const data = await db.any(query);
         res.json(data);
