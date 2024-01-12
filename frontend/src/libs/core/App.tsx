@@ -14,7 +14,7 @@ export default function AppLayout({ children }: LayoutProps): JSX.Element {
   const router: NextRouter = useRouter();
 
   const errPath = router.pathname === '/404';
-  const noneView = router.pathname === '/form-fields';
+  const noneView = (router.pathname === '/form-fields' || router.pathname === '/login/loginForm');
 
   return (
     <div id="layout">

@@ -18,20 +18,10 @@ export default function Index() {
   const router: NextRouter = useRouter();
   const [isSearch, setIsSearch] = useState('');
   const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   console.log("occur effect.. ");
-  // }, []);
 
-  // interface TestData {
-  //   test: string;
-  // }
-
-  // const testData: TestData = {'test' : '테스트 데이타 입니다'};
-
-  const handleButtonClick = async () => {    
-    // 버튼 클릭 시 URL 호출    
+  const handleButtonClick = async () => {      
     try {
-      const response = await fetch('http://localhost:3001/contentList/api/test/read', {
+      const response = await fetch('http://localhost:3001/contentList/read', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,9 +74,7 @@ export default function Index() {
           <Spacing size={44} />
           <Comp4 />
           <Spacing size={44} />
-          <Comp5 />
-          {/* 
-           */}
+          <Comp5 />          
         </Container>
       </Section>
     </>

@@ -27,19 +27,30 @@ import { regEx } from '@/libs/utils/regEx';
 import CheckBoxs from './CheckBoxs';
 import CheckModals from './CheckModals';
 
-//
+// interface isValuesProps {
+//   profile_image_path: string;
+//   name: string;
+//   tel: string;
+//   email: string;
+//   gender: string;
+//   price: string;
+//   date: Date | string;
+//   context: string;
+//   check1: boolean;
+//   chk_privacy: boolean;
+//   chk_marketing: boolean;
+// }
+
 interface isValuesProps {
-  profileImg: string;
+  profile_image_path: string;
   name: string;
-  tel: string;
+  password : string;
+  phone_number: string;  
   email: string;
-  gender: string;
-  price: string;
-  date: Date | string;
-  context: string;
-  check1: boolean;
-  check2: boolean;
-  check3: boolean;
+  gender: string;  
+  chk_terms_use: boolean;
+  chk_privacy: boolean;
+  chk_marketing: boolean;
 }
 
 //
@@ -49,45 +60,79 @@ export default function Fields() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isType, setIsType] = useState<'default' | 'box'>('box');
 
+  // const [isValues, setIsValues] = useState<isValuesProps>({
+  //   profile_image_path: '',
+  //   name: '',
+  //   tel: '',
+  //   email: '',
+  //   gender: '',
+  //   price: '',
+  //   date: new Date(),
+  //   context: '',
+  //   check1: false,
+  //   chk_privacy: false,
+  //   chk_marketing: false,
+  // });
+
   const [isValues, setIsValues] = useState<isValuesProps>({
-    profileImg: '',
+    profile_image_path: '',
     name: '',
-    tel: '',
+    password : '',
+    phone_number: '',
     email: '',
-    gender: '',
-    price: '',
-    date: new Date(),
-    context: '',
-    check1: false,
-    check2: false,
-    check3: false,
+    gender: '',        
+    chk_terms_use: false,
+    chk_privacy: false,
+    chk_marketing: false,
   });
 
   //
   /// 인풋 핸들러
-  const handleCheckOnChange = (type: 'check1' | 'check2' | 'check3') => {
-    if (type === 'check1') setIsValues({ ...isValues, check1: !isValues.check1 });
-    if (type === 'check2') setIsValues({ ...isValues, check2: !isValues.check2 });
-    if (type === 'check3') setIsValues({ ...isValues, check3: false });
+  const handleCheckOnChange = (type: 'chk_terms_use' | 'chk_privacy' | 'chk_marketing') => {
+    if (type === 'chk_terms_use') setIsValues({ ...isValues, chk_terms_use: !isValues.chk_terms_use });
+    if (type === 'chk_privacy') setIsValues({ ...isValues, chk_privacy: !isValues.chk_privacy });
+    if (type === 'chk_marketing') setIsValues({ ...isValues, chk_marketing: false });
   };
 
   //
   /// 문의하기 : 에디터
-  useRaiseEditor({
-    state: isValues.context,
-    ref: textRef,
-  });
+  // useRaiseEditor({
+  //   state: isValues.context,
+  //   ref: textRef,
+  // });
 
   //
   /// 제출하기
-  const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
-    setTimeout(() => {
-      setIsLoading(false);
-      router.push({ query: { results: true } });
-    }, 1500);
+    try {
+        const response = await fetch('http://localhost:3001/users/save', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+            {
+                userInfo: isValues,
+            }
+            ),
+        });
+        if (response.ok) {
+            const resData = await response.json();
+            setIsLoading(false);
+            router.push({ query: { results: true } });        
+        } else {
+            alert('서버 응답 에러가 발생 했어요...');
+            setIsLoading(false);
+            console.error('서버 응답 에러:', response.statusText);
+        }
+    } catch (error: any) {
+        alert('서버 호출 에러가 발생 했어요...');
+        setIsLoading(false);
+        console.error('API 호출 에러:', error.message);
+    }
   };
 
   return (
@@ -122,9 +167,9 @@ export default function Fields() {
           {/* ----- 프로필 사진 업로드 : ProfileUploadBox ----- */}
           <ProfileUploadBox
             size={120}
-            image={isValues.profileImg}
-            imageOnload={(result: any) => setIsValues({ ...isValues, profileImg: result })}
-            uploadCancel={() => setIsValues({ ...isValues, profileImg: '' })}
+            image={isValues.profile_image_path}
+            imageOnload={(result: any) => setIsValues({ ...isValues, profile_image_path: result })}
+            uploadCancel={() => setIsValues({ ...isValues, profile_image_path: '' })}
           />
 
           {/* ----- 이름 텍스트 타입 인풋 : TextField ----- */}
@@ -141,14 +186,28 @@ export default function Fields() {
             />
           </Input>
 
+          {/* ----- 패스워드 타입 인풋 : PasswordField ----- */}
+          <Input label="패스워드" labelEdge="(필수)">
+            <Input.TextField
+              shape={isType}
+              placeholder="이름을 입력하세요"
+              type="password"
+              name="password"
+              value={isValues.password}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setIsValues({ ...isValues, password: e.target.value })
+              }
+            />
+          </Input>
+
           {/* ----- 연락처 타입 인풋 : PhoneNumberField ----- */}
           <Input label="연락처" labelEdge="(필수)">
             <Input.PhoneNumberField
               shape={isType}
               placeholder="연락처를 입력하세요"
-              value={isValues.tel}
+              value={isValues.phone_number}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setIsValues({ ...isValues, tel: e.target.value })
+                setIsValues({ ...isValues, phone_number: e.target.value })
               }
             />
           </Input>
@@ -229,11 +288,12 @@ export default function Fields() {
             disabled={
               !(
                 isValues.name &&
+                isValues.password &&
                 isValues.email &&
-                isValues.tel &&
+                isValues.phone_number &&
                 // isValues.context &&
-                isValues.check1 &&
-                isValues.check2
+                isValues.chk_terms_use &&
+                isValues.chk_privacy
               )
             }
           >
@@ -243,7 +303,7 @@ export default function Fields() {
       </Column>
 
       {/* ----- 체크박스 모달 ----- */}
-      <CheckModals dialogOnChange={() => setIsValues({ ...isValues, check3: true })} />
+      <CheckModals dialogOnChange={() => setIsValues({ ...isValues, chk_marketing: true })} />
     </>
   );
 }

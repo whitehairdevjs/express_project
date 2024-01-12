@@ -16,7 +16,7 @@ export default function FormFields() {
 
   return (
     <>
-      <SEO title="가입하기 템플릿" description="Form 개발할때 다양한 인풋들을 사용해보세요!" />
+      <SEO title="가입하기" description="가입하기 페이지" />
 
       <Section>
         <Container

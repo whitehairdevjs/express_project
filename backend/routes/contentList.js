@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const app = express();
 const { initOptions, db } = require('../db');
 
-router.post('/api/test/read', async (req, res) => {
+router.post('/read', async (req, res) => {
     try {                    
         let query = 'SELECT * FROM "content_list"';
         if (req.body.searchText !== undefined && req.body.searchText !== null && req.body.searchText !== "") {
@@ -16,5 +15,6 @@ router.post('/api/test/read', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 
 module.exports = router;

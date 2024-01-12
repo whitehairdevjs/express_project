@@ -7,9 +7,9 @@ import { colors, borderRadius, fontSize } from '@/libs/themes/_index';
 
 //
 interface isValuesProps {
-  check1: boolean;
-  check2: boolean;
-  check3: boolean;
+  chk_terms_use: boolean;
+  chk_privacy: boolean;
+  chk_marketing: boolean;
 }
 
 //
@@ -18,7 +18,7 @@ export default function CheckBoxs({
   handleCheckOnChange,
 }: {
   isValues: isValuesProps;
-  handleCheckOnChange: (type: 'check1' | 'check2' | 'check3') => void;
+  handleCheckOnChange: (type: 'chk_terms_use' | 'chk_privacy' | 'chk_marketing') => void;
 }) {
   const router: NextRouter = useRouter();
 
@@ -49,8 +49,8 @@ export default function CheckBoxs({
         <CheckInput label="이용약관 (필수)">
           <CheckInput.CheckBox
             id="이용약관"
-            checked={isValues.check1}
-            onChange={() => handleCheckOnChange('check1')}
+            checked={isValues.chk_terms_use}
+            onChange={() => handleCheckOnChange('chk_terms_use')}
           />
         </CheckInput>
 
@@ -73,8 +73,8 @@ export default function CheckBoxs({
         <CheckInput label="개인정보 처리방침 (필수)">
           <CheckInput.CheckBox
             id="개인정보처리방침"
-            checked={isValues.check2}
-            onChange={() => handleCheckOnChange('check2')}
+            checked={isValues.chk_privacy}
+            onChange={() => handleCheckOnChange('chk_privacy')}
           />
         </CheckInput>
 
@@ -97,15 +97,15 @@ export default function CheckBoxs({
         <CheckInput label="마케팅 수신동의">
           <CheckInput.CheckBox
             id="마케팅 수신동의"
-            checked={isValues.check3}
+            checked={isValues.chk_marketing}
             onClick={() => {
-              if (!isValues.check3) {
+              if (!isValues.chk_marketing) {
                 modalQueryRouter('마케팅수신동의');
               }
             }}
             onChange={(e) => {
-              if (isValues.check3) {
-                handleCheckOnChange('check3');
+              if (isValues.chk_marketing) {
+                handleCheckOnChange('chk_marketing');
               }
             }}
           />
