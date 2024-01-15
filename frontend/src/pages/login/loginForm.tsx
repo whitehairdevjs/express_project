@@ -20,12 +20,12 @@ export default function FormFields() {
         <Container
           maxWidth={560}
           gap={22}
-          padding={{ top: 40, bottom: 20, horizontal: 20 }}
+          padding={{ top: 240, bottom: 20, horizontal: 20 }}
           css={{ [MQ[3]]: { paddingTop: 16, paddingBottom: 0 } }}
         >
           <Wrap gap={12}>
             <Txt as="h1" size={fontSize.s24}>
-              {`로그인~~`}
+              {`로그인`}
             </Txt>            
           </Wrap>          
           <LoginFields />

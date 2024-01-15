@@ -28,15 +28,8 @@ import CheckBoxs from './CheckBoxs';
 import CheckModals from './CheckModals';
 
 interface isValuesProps {
-  profile_image_path: string;
-  name: string;
-  password : string;
-  phone_number: string;  
   email: string;
-  gender: string;  
-  chk_terms_use: boolean;
-  chk_privacy: boolean;
-  chk_marketing: boolean;
+  password : string;   
 }
 
 //
@@ -47,24 +40,17 @@ export default function Fields() {
   const [isType, setIsType] = useState<'default' | 'box'>('box');
 
   const [isValues, setIsValues] = useState<isValuesProps>({
-    profile_image_path: '',
-    name: '',
-    password : '',
-    phone_number: '',
     email: '',
-    gender: '',        
-    chk_terms_use: false,
-    chk_privacy: false,
-    chk_marketing: false,
+    password : ''
   });
 
   //
   /// 인풋 핸들러
-  const handleCheckOnChange = (type: 'chk_terms_use' | 'chk_privacy' | 'chk_marketing') => {
-    if (type === 'chk_terms_use') setIsValues({ ...isValues, chk_terms_use: !isValues.chk_terms_use });
-    if (type === 'chk_privacy') setIsValues({ ...isValues, chk_privacy: !isValues.chk_privacy });
-    if (type === 'chk_marketing') setIsValues({ ...isValues, chk_marketing: false });
-  };
+  // const handleCheckOnChange = (type: 'chk_terms_use' | 'chk_privacy' | 'chk_marketing') => {
+  //   if (type === 'chk_terms_use') setIsValues({ ...isValues, chk_terms_use: !isValues.chk_terms_use });
+  //   if (type === 'chk_privacy') setIsValues({ ...isValues, chk_privacy: !isValues.chk_privacy });
+  //   if (type === 'chk_marketing') setIsValues({ ...isValues, chk_marketing: false });
+  // };
 
   /// 제출하기
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -72,7 +58,7 @@ export default function Fields() {
     setIsLoading(true);
 
     try {
-        const response = await fetch('http://localhost:3001/users/save', {
+        const response = await fetch('http://localhost:3001/users/login', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -86,7 +72,7 @@ export default function Fields() {
         if (response.ok) {
             const resData = await response.json();
             setIsLoading(false);
-            router.push({ query: { results: true } });        
+            router.push({ query: { results: true } });               
         } else {
             alert('서버 응답 에러가 발생 했어요...');
             setIsLoading(false);
@@ -140,27 +126,22 @@ export default function Fields() {
 
           <Button
             maxWidth={520}
-            bottomFixed
+            // bottomFixed
             type="submit"
             disabled={
               !(
-                isValues.name &&
-                isValues.password &&
                 isValues.email &&
-                isValues.phone_number &&
-                // isValues.context &&
-                isValues.chk_terms_use &&
-                isValues.chk_privacy
+                isValues.password                               
               )
             }
           >
-            제출
+            로그인
           </Button>
         </Form>
       </Column>
 
       {/* ----- 체크박스 모달 ----- */}
-      <CheckModals dialogOnChange={() => setIsValues({ ...isValues, chk_marketing: true })} />
+      {/* <CheckModals dialogOnChange={() => setIsValues({ ...isValues, chk_marketing: true })} /> */}
     </>
   );
 }
